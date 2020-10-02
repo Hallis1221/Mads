@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -41,6 +43,7 @@ class LoginContent extends StatefulWidget {
 }
 
 class _LoginContentState extends State<LoginContent> {
+  String _error = '';
   final _controllerOne = TextEditingController();
   final _controllerTwo = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -74,6 +77,7 @@ class _LoginContentState extends State<LoginContent> {
             ),
           ),
         ),
+        Text(_error),
         SizedBox(
           height: 50,
         ),
@@ -85,11 +89,7 @@ class _LoginContentState extends State<LoginContent> {
                 hintText: widget.hintTextOne,
                 controller: _controllerOne,
                 validatorSigns: (input) {
-                  if (input.isEmpty ||
-                      input.contains("@") ||
-                      input.contains(".")) {
-                    return 'Please enter a valid email.';
-                  }
+                  //todo
                   return '';
                 },
               ),
@@ -98,11 +98,7 @@ class _LoginContentState extends State<LoginContent> {
                 controller: _controllerTwo,
                 obscure: true,
                 validatorSigns: (input) {
-                  if (input.isEmpty ||
-                      input.contains("@") ||
-                      input.contains(".")) {
-                    return 'Please enter a valid password.';
-                  }
+                  //todo
                   return '';
                 },
               ),
@@ -110,12 +106,27 @@ class _LoginContentState extends State<LoginContent> {
           ),
         ),
         MaterialButton(
-            onPressed: () {
+            onPressed: () async {
               final formState = _formKey.currentState;
               if (formState.validate()) {
                 formState.save();
               }
-              print(MediaQuery.of(context).size.width / 100);
+
+              try {
+                User user = (await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _controllerOne.text,
+                            password: _controllerTwo.text))
+                    .user;
+                setState(() {
+                  _error = user.email;
+                });
+              } catch (e) {
+                setState(() {
+                  print(_error);
+                  _error = e.toString();
+                });
+              }
             },
             child: Container(
               color: Colors.red,
