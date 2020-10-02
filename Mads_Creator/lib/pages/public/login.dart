@@ -43,6 +43,7 @@ class LoginContent extends StatefulWidget {
 class _LoginContentState extends State<LoginContent> {
   final _controllerOne = TextEditingController();
   final _controllerTwo = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -76,16 +77,44 @@ class _LoginContentState extends State<LoginContent> {
         SizedBox(
           height: 50,
         ),
-        Input(
-          hintText: widget.hintTextOne,
-          controller: _controllerOne,
-        ),
-        Input(
-          hintText: widget.hintTextTwo,
-          controller: _controllerTwo,
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Input(
+                hintText: widget.hintTextOne,
+                controller: _controllerOne,
+                validatorSigns: (input) {
+                  if (input.isEmpty ||
+                      input.contains("@") ||
+                      input.contains(".")) {
+                    return 'Please enter a valid email.';
+                  }
+                  return '';
+                },
+              ),
+              Input(
+                hintText: widget.hintTextTwo,
+                controller: _controllerTwo,
+                obscure: true,
+                validatorSigns: (input) {
+                  if (input.isEmpty ||
+                      input.contains("@") ||
+                      input.contains(".")) {
+                    return 'Please enter a valid password.';
+                  }
+                  return '';
+                },
+              ),
+            ],
+          ),
         ),
         MaterialButton(
             onPressed: () {
+              final formState = _formKey.currentState;
+              if (formState.validate()) {
+                formState.save();
+              }
               print(MediaQuery.of(context).size.width / 100);
             },
             child: Container(
@@ -99,14 +128,18 @@ class _LoginContentState extends State<LoginContent> {
 }
 
 class Input extends StatelessWidget {
-  const Input({
-    Key key,
-    @required this.hintText,
-    @required this.controller,
-  }) : super(key: key);
+  const Input(
+      {Key key,
+      @required this.hintText,
+      @required this.controller,
+      @required this.validatorSigns,
+      this.obscure = false})
+      : super(key: key);
 
+  final bool obscure;
   final TextEditingController controller;
   final String hintText;
+  final Function validatorSigns;
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +149,8 @@ class Input extends StatelessWidget {
       child: Container(
         width: 400,
         child: TextFormField(
+          obscureText: obscure,
+          validator: validatorSigns,
           controller: controller,
           cursorColor: Colors.black,
           decoration: new InputDecoration(
