@@ -1,4 +1,9 @@
+import 'package:Mads_Creator/pages/loggedin/dashboard/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+User currentUser;
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -41,8 +46,10 @@ class LoginContent extends StatefulWidget {
 }
 
 class _LoginContentState extends State<LoginContent> {
+  String _error = '';
   final _controllerOne = TextEditingController();
   final _controllerTwo = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -73,20 +80,61 @@ class _LoginContentState extends State<LoginContent> {
             ),
           ),
         ),
+        Text(_error),
         SizedBox(
           height: 50,
         ),
-        Input(
-          hintText: widget.hintTextOne,
-          controller: _controllerOne,
-        ),
-        Input(
-          hintText: widget.hintTextTwo,
-          controller: _controllerTwo,
+        Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Input(
+                hintText: widget.hintTextOne,
+                controller: _controllerOne,
+                validatorSigns: (input) {
+                  //todo
+                  return '';
+                },
+              ),
+              Input(
+                hintText: widget.hintTextTwo,
+                controller: _controllerTwo,
+                obscure: true,
+                validatorSigns: (input) {
+                  //todo
+                  return '';
+                },
+              ),
+            ],
+          ),
         ),
         MaterialButton(
-            onPressed: () {
-              print(MediaQuery.of(context).size.width / 100);
+            onPressed: () async {
+              final formState = _formKey.currentState;
+              if (formState.validate()) {
+                formState.save();
+              }
+
+              try {
+                currentUser = (await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _controllerOne.text,
+                            password: _controllerTwo.text))
+                    .user;
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DashboardHomepage()));
+                print("1");
+                setState(() {
+                  _error = currentUser.email.toString();
+                });
+                print("object2");
+              } catch (e) {
+                setState(() {
+                  _error = e.toString();
+                });
+              }
             },
             child: Container(
               color: Colors.red,
@@ -99,14 +147,18 @@ class _LoginContentState extends State<LoginContent> {
 }
 
 class Input extends StatelessWidget {
-  const Input({
-    Key key,
-    @required this.hintText,
-    @required this.controller,
-  }) : super(key: key);
+  const Input(
+      {Key key,
+      @required this.hintText,
+      @required this.controller,
+      @required this.validatorSigns,
+      this.obscure = false})
+      : super(key: key);
 
+  final bool obscure;
   final TextEditingController controller;
   final String hintText;
+  final Function validatorSigns;
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +168,8 @@ class Input extends StatelessWidget {
       child: Container(
         width: 400,
         child: TextFormField(
+          obscureText: obscure,
+          validator: validatorSigns,
           controller: controller,
           cursorColor: Colors.black,
           decoration: new InputDecoration(
