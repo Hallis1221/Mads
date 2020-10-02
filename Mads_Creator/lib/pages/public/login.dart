@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+User currentUser;
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
@@ -114,18 +116,17 @@ class _LoginContentState extends State<LoginContent> {
               }
 
               try {
-                User user = (await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _controllerOne.text,
-                            password: _controllerTwo.text))
+                currentUser = (await FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: _controllerOne.text,
+                        password: _controllerTwo.text))
                     .user;
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => DashboardHomepage()));
                 setState(() {
-                  _error = user.email.toString();
-                  print(user.email.toString());
+                  _error = currentUser.email.toString();
+                  print(currentUser.email.toString());
                 });
               } catch (e) {
                 setState(() {
