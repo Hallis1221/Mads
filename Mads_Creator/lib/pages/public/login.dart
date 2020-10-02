@@ -116,22 +116,22 @@ class _LoginContentState extends State<LoginContent> {
               }
 
               try {
-                currentUser = (await FirebaseAuth.instance.signInWithEmailAndPassword(
-                        email: _controllerOne.text,
-                        password: _controllerTwo.text))
+                currentUser = (await FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _controllerOne.text,
+                            password: _controllerTwo.text))
                     .user;
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => DashboardHomepage()));
+                print("1");
                 setState(() {
                   _error = currentUser.email.toString();
-                  print(currentUser.email.toString());
                 });
+                print("object2");
               } catch (e) {
                 setState(() {
-                  print("object");
-                  print(_error);
                   _error = e.toString();
                 });
               }
