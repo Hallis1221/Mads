@@ -16,6 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("v.0.01"),),
       body: Container(
         child: Center(
           child: LoginContent(
@@ -109,38 +110,37 @@ class _LoginContentState extends State<LoginContent> {
           ),
         ),
         MaterialButton(
-            onPressed: () async {
-              final formState = _formKey.currentState;
-              if (formState.validate()) {
-                formState.save();
-              }
+          onPressed: () async {
+            final formState = _formKey.currentState;
+            if (formState.validate()) {
+              formState.save();
+            }
 
-              try {
-                currentUser = (await FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _controllerOne.text,
-                            password: _controllerTwo.text))
-                    .user;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DashboardHomepage()));
-                print("1");
-                setState(() {
-                  _error = currentUser.email.toString();
-                });
-                print("object2");
-              } catch (e) {
-                setState(() {
-                  _error = e.toString();
-                });
-              }
-            },
-            child: Container(
-              color: Colors.red,
-              height: 50,
-              width: 50,
-            ))
+            try {
+              currentUser = (await FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _controllerOne.text,
+                          password: _controllerTwo.text))
+                  .user;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => DashboardHomepage()));
+              print("1");
+              setState(() {
+                _error = currentUser.email.toString();
+              });
+              print("object2");
+            } catch (e) {
+              setState(() {
+                _error = e.toString();
+              });
+            }
+          },
+          child: Container(
+            color: Colors.red,
+            height: 50,
+            width: 50,
+          ),
+        ),
       ],
     );
   }
