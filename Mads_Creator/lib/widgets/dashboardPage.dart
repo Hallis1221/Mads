@@ -93,11 +93,7 @@ class _DashPageState extends State<DashPage> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-              color: _randomColor.randomColor(),
-            ),
-          ),
+          widget.page
         ],
       ),
     );

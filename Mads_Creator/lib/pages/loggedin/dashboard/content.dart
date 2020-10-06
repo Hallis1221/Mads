@@ -16,15 +16,17 @@ class Content extends StatefulWidget {
 class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
-    return DashPage(
-      selected: {
-        "Home": false,
-        "Content": true,
-        "Settings": false,
-      },
-      page: Expanded(
-        child: Container(
-          color: _randomColor.randomColor(),
+    return Scaffold(
+          body: DashPage(
+        selected: {
+          "Home": false,
+          "Content": true,
+          "Settings": false,
+        },
+        page: Expanded(
+          child: Container(
+            color: _randomColor.randomColor(),
+          ),
         ),
       ),
     );

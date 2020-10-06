@@ -1,7 +1,4 @@
 import 'package:Mads_Creator/widgets/dashboardPage.dart';
-import 'package:Mads_Creator/widgets/sidelayout.dart';
-import 'package:Mads_Creator/pages/loggedin/dashboard/content.dart';
-import 'package:Mads_Creator/pages/loggedin/dashboard/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:Mads_Creator/pages/public/login.dart';
 import 'package:random_color/random_color.dart';
@@ -16,17 +13,46 @@ class DashboardHomepage extends StatefulWidget {
 
 class _DashboardHomepageState extends State<DashboardHomepage> {
   @override
-  Widget build(BuildContext context) { 
-    return DashPage(
-        selected: {
-          "Home": true,
-          "Content": false,
-          "Settings": false,
-        },
-        page: Expanded(
-          child: Container(
-            color: _randomColor.randomColor(),
-          ),
-        ));
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: DashPage(
+          selected: {
+            "Home": true,
+            "Content": false,
+            "Settings": false,
+          },
+          page: Expanded(
+            child: Container(
+              color: Colors.white70,
+              child: Column(
+                children: [
+                  SizedBox(height: 75),
+                  Row(
+                    children: [
+                      SizedBox(width:150),
+                      if (currentUser != null)
+                        Text(
+                          "Welcome, " + currentUser.email.toString(),
+                          style: TextStyle(
+                            fontFamily: 'SourceSansPro',
+                            fontSize: 22,
+                            color: Colors.white,
+                          ),
+                        ),
+                      if (currentUser == null)
+                        Text(
+                          "Hmm... You're not logged in",
+                          style: TextStyle(
+                              fontFamily: 'SourceSansPro',
+                              fontSize: 50,
+                              color: Colors.black),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          )),
+    );
   }
 }
