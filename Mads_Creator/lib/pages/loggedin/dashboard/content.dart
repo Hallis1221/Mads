@@ -1,4 +1,5 @@
-import 'package:Mads_Creator/elements/sidelayout.dart';
+import 'package:Mads_Creator/widgets/dashboardPage.dart';
+import 'package:Mads_Creator/widgets/sidelayout.dart';
 import 'package:Mads_Creator/pages/loggedin/dashboard/home.dart';
 import 'package:Mads_Creator/pages/loggedin/dashboard/settings.dart';
 import 'package:flutter/material.dart';
@@ -15,62 +16,16 @@ class Content extends StatefulWidget {
 class _ContentState extends State<Content> {
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
-    return Container(
-      height: height,
-      width: width,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: <Widget>[
-          Container(
-            width: width / 5,
-            height: height,
-            child: SideLayout(
-              navigationItems: [
-                NavigationItem(
-                  onClicked: () {
-                    Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            DashboardHomepage(),
-                      ),
-                    );
-                  },
-                  icon: Icons.home_outlined,
-                  selected: false,
-                  text: "Home",
-                ),
-                NavigationItem(
-                  icon: Icons.insert_drive_file_sharp,
-                  onClicked: () {},
-                  text: "Content",
-                  selected: true,
-                ),
-                NavigationItem(
-                  onClicked: () {
-                    Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
-                        pageBuilder: (context, animation1, animation2) =>
-                            Settings(),
-                      ),
-                    );
-                  },
-                  selected: false,
-                  icon: Icons.settings,
-                  text: "Settings",
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              color: _randomColor.randomColor(),
-            ),
-          ),
-        ],
+    return DashPage(
+      selected: {
+        "Home": false,
+        "Content": true,
+        "Settings": false,
+      },
+      page: Expanded(
+        child: Container(
+          color: _randomColor.randomColor(),
+        ),
       ),
     );
   }
