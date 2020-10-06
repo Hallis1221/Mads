@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:Mads_Creator/pages/public/login.dart';
 
-
 class SideLayout extends StatelessWidget {
-  const SideLayout({Key key}) : super(key: key);
+  const SideLayout({Key key, @required this.navigationItems}) : super(key: key);
+
+  final List <NavigationItem> navigationItems;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +30,12 @@ class SideLayout extends StatelessWidget {
             SizedBox(
               height: 15,
             ),
-            NavigationItem(
-              onClicked: () => print(MediaQuery.of(context).size.width),
-              icon: Icons.home_outlined,
-              selected: true, text: "Home",
-            ),
-            NavigationItem(
-              onClicked: () => print("object"),
-              selected: false,
-              icon: Icons.settings, text: "Settings",
-            ),
+          Column(children: navigationItems),
           ],
         ),
+        
       ),
+      
     );
   }
 }
@@ -51,7 +45,8 @@ class NavigationItem extends StatelessWidget {
     Key key,
     this.selected = false,
     @required this.onClicked,
-    @required this.icon, @required this.text,
+    @required this.icon,
+    @required this.text,
   }) : super(key: key);
 
   final bool selected;
@@ -137,14 +132,14 @@ class NavigationItem extends StatelessWidget {
                         width: 10,
                       ),
                       if (MediaQuery.of(context).size.width >= 1000)
-                      Text(
-                        text,
-                        style: TextStyle(
-                          fontFamily: 'SourceSansPro',
-                          fontSize: 22,
-                          color: Colors.white,
+                        Text(
+                          text,
+                          style: TextStyle(
+                            fontFamily: 'SourceSansPro',
+                            fontSize: 22,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                   SizedBox(height: 40, width: 50),
