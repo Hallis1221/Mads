@@ -1,4 +1,4 @@
-import 'package:Mads_Creator/elements/sidelayout.dart';
+import 'package:Mads_Creator/widgets/sidelayout.dart';
 import 'package:Mads_Creator/pages/loggedin/dashboard/home.dart';
 import 'package:Mads_Creator/pages/loggedin/dashboard/settings.dart';
 import 'package:flutter/material.dart';
