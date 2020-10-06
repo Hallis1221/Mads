@@ -15,10 +15,12 @@ class DashPage extends StatefulWidget {
       "Dashboard": false,
       "Settings": false
     },
+    @required this.page,
   }) : super(key: key);
 
   final Map<String, bool> selected;
 
+  final Widget page;
   @override
   _DashPageState createState() => _DashPageState();
 }
@@ -58,8 +60,10 @@ class _DashPageState extends State<DashPage> {
                 ),
                 NavigationItem(
                   icon: Icons.insert_drive_file_sharp,
+                  text: "Content",
+                  selected: widget.selected["Content"],
                   onClicked: () {
-                    if (!widget.selected["Home"]) {
+                    if (!widget.selected["Content"]) {
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
@@ -69,20 +73,18 @@ class _DashPageState extends State<DashPage> {
                       );
                     } else {}
                   },
-                  text: "Content",
-                  selected: widget.selected["Content"],
                 ),
                 NavigationItem(
                   selected: widget.selected["Settings"],
                   icon: Icons.settings,
                   text: "Settings",
                   onClicked: () {
-                    if (!widget.selected["Home"]) {
+                    if (!widget.selected["Settings"]) {
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
                           pageBuilder: (context, animation1, animation2) =>
-                              DashboardHomepage(),
+                              Settings(),
                         ),
                       );
                     } else {}
