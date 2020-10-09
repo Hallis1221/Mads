@@ -96,8 +96,35 @@ class _DashPageState extends State<DashPage> {
                 ),
               ),
               Expanded(
-                child: widget.page
-              ),
+                  child: Column(
+                children: [
+                  Container(
+                   color: Color.fromARGB(255, 240, 240, 247),
+                    height: height,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: width,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            color:Colors.white,
+                            boxShadow: [BoxShadow(blurRadius: 10, color: Color.fromARGB(10, 0, 0, 0),),],
+                          ),
+                          child: Row(
+                            children: [
+                              SizedBox(width: 15,),
+                              Container(width: 50 ,child: Icon(Icons.search, color: Color.fromARGB(255, 188, 188, 203), size: 50,),),
+                              SizedBox(width: 10,),
+                              Text('Search', style: TextStyle(fontSize: 20),),
+                            ],
+                          ),
+                        ),
+                        Container(child: widget.page),
+                      ],
+                    ),
+                  ),
+                ],
+              ))
             ],
           ),
         ),
