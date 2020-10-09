@@ -14,41 +14,39 @@ class DashboardHomepage extends StatefulWidget {
 class _DashboardHomepageState extends State<DashboardHomepage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: DashPage(
-        selected: {
-          "Home": true,
-          "Content": false,
-          "Settings": false,
-        },
-        page: Container(
-          child: Column(
-            children: [
-              SizedBox(height: 75),
-              Row(
-                children: [
-                  SizedBox(width: 150),
-                  if (currentUser != null)
-                    Text(
-                      "Welcome, " + currentUser.email.toString(),
-                      style: TextStyle(
+    return DashPage(
+      selected: {
+        "Home": true,
+        "Content": false,
+        "Settings": false,
+      },
+      page: Container(
+        child: Column(
+          children: [
+            SizedBox(height: 75),
+            Row(
+              children: [
+                SizedBox(width: 150),
+                if (currentUser != null)
+                  Text(
+                    "Welcome, " + currentUser.email.toString(),
+                    style: TextStyle(
+                      fontFamily: 'SourceSansPro',
+                      fontSize: 50,
+                      color: Colors.black,
+                    ),
+                  ),
+                if (currentUser == null)
+                  Text(
+                    "Hmm... You're not logged in",
+                    style: TextStyle(
                         fontFamily: 'SourceSansPro',
                         fontSize: 50,
-                        color: Colors.black,
-                      ),
-                    ),
-                  if (currentUser == null)
-                    Text(
-                      "Hmm... You're not logged in",
-                      style: TextStyle(
-                          fontFamily: 'SourceSansPro',
-                          fontSize: 50,
-                          color: Colors.black),
-                    ),
-                ],
-              ),
-            ],
-          ),
+                        color: Colors.black),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
     );
