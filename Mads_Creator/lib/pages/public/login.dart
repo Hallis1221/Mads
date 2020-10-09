@@ -16,7 +16,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("v.0.04"),),
+      appBar: AppBar(title: Text("v.0.05"),),
       body: Container(
         child: Center(
           child: LoginContent(
@@ -124,11 +124,9 @@ class _LoginContentState extends State<LoginContent> {
                   .user;
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DashboardHomepage()));
-              print("1");
               setState(() {
                 _error = currentUser.email.toString();
               });
-              print("object2");
             } catch (e) {
               setState(() {
                 _error = e.toString();

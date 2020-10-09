@@ -16,43 +16,41 @@ class _DashboardHomepageState extends State<DashboardHomepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DashPage(
-          selected: {
-            "Home": true,
-            "Content": false,
-            "Settings": false,
-          },
-          page: Expanded(
-            child: Container(
-              color: Colors.white70,
-              child: Column(
+        selected: {
+          "Home": true,
+          "Content": false,
+          "Settings": false,
+        },
+        page: Container(
+          child: Column(
+            children: [
+              SizedBox(height: 75),
+              Row(
                 children: [
-                  SizedBox(height: 75),
-                  Row(
-                    children: [
-                      SizedBox(width:150),
-                      if (currentUser != null)
-                        Text(
-                          "Welcome, " + currentUser.email.toString(),
-                          style: TextStyle(
-                            fontFamily: 'SourceSansPro',
-                            fontSize: 22,
-                            color: Colors.white,
-                          ),
-                        ),
-                      if (currentUser == null)
-                        Text(
-                          "Hmm... You're not logged in",
-                          style: TextStyle(
-                              fontFamily: 'SourceSansPro',
-                              fontSize: 50,
-                              color: Colors.black),
-                        ),
-                    ],
-                  ),
+                  SizedBox(width: 150),
+                  if (currentUser != null)
+                    Text(
+                      "Welcome, " + currentUser.email.toString(),
+                      style: TextStyle(
+                        fontFamily: 'SourceSansPro',
+                        fontSize: 50,
+                        color: Colors.black,
+                      ),
+                    ),
+                  if (currentUser == null)
+                    Text(
+                      "Hmm... You're not logged in",
+                      style: TextStyle(
+                          fontFamily: 'SourceSansPro',
+                          fontSize: 50,
+                          color: Colors.black),
+                    ),
                 ],
               ),
-            ),
-          )),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
