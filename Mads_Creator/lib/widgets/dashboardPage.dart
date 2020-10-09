@@ -172,7 +172,6 @@ class SearchBar extends StatelessWidget {
     "Home",
     "Content",
     "Settings",
-    "Setting"
   ];
   static final Map<String, Widget> searchTermsLinked = {
     searchTermsString[0]: DashboardHomepage(),
@@ -188,10 +187,11 @@ class SearchBar extends StatelessWidget {
       child: TypeAheadField(
         hideOnEmpty: true,
         getImmediateSuggestions: true,
-
         textFieldConfiguration: TextFieldConfiguration(
           autofocus: false,
-          decoration: InputDecoration(hintText: "Search",),
+          decoration: InputDecoration(
+            hintText: "Search",
+          ),
           style: DefaultTextStyle.of(context)
               .style
               .copyWith(fontStyle: FontStyle.italic),
