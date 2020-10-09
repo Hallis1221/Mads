@@ -188,8 +188,10 @@ class SearchBar extends StatelessWidget {
       child: TypeAheadField(
         hideOnEmpty: true,
         getImmediateSuggestions: true,
+
         textFieldConfiguration: TextFieldConfiguration(
-          autofocus: true,
+          autofocus: false,
+          decoration: InputDecoration(hintText: "Search",),
           style: DefaultTextStyle.of(context)
               .style
               .copyWith(fontStyle: FontStyle.italic),
