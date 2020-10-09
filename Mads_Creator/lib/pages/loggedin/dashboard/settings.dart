@@ -16,7 +16,8 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return DashPage(
+    return Scaffold(
+      body: DashPage(
         selected: {
           "Home": false,
           "Content": false,
@@ -26,6 +27,8 @@ class _SettingsState extends State<Settings> {
           child: Container(
             color: _randomColor.randomColor(),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
