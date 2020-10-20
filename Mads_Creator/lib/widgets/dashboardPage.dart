@@ -129,10 +129,10 @@ class _DashPageState extends State<DashPage> {
                               child: Row(
                                 children: [
                                   SizedBox(
-                                    width: 15,
+                                    width: MediaQuery.of(context).size.width/125,
                                   ),
                                   Container(
-                                    width: 50,
+                                    width: MediaQuery.of(context).size.width/40,
                                     child: Icon(
                                       Icons.search,
                                       color: Color.fromARGB(255, 188, 188, 203),
@@ -140,13 +140,18 @@ class _DashPageState extends State<DashPage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    width: 10,
+                                    width: MediaQuery.of(context).size.width/100,
                                   ),
                                   SearchBar(width: width),
                                 ],
                               ),
                             ),
-                            Container(child: widget.page),
+                            Flex(
+                              direction: Axis.horizontal,
+                              children: [
+                                Expanded(child: Container(child: widget.page)),
+                              ],
+                            ),
                           ],
                         ),
                       ),
