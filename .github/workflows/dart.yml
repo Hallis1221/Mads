@@ -1,24 +1,22 @@
 name: Dart CI
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build:
-
+on: push
+jobs: 
+  build-and-test: 
     runs-on: ubuntu-latest
-
-    container:
-      image:  google/dart:latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: pub get
+    - uses: actions/checkout@v1 
+    # The flutter action needs java so include it
+    - uses: actions/setup-java@v1
+      with:
+        java-version: '12.x'
+    # Include the flutter action
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: 'dev'  
+    # Get flutter packages
+    - run: flutter pub get
       working-directory: Mads_Creator/
-    - name: Run tests
-      run: pub run test
+    # Build :D 
+    - run: flutter build web
       working-directory: Mads_Creator/
