@@ -17,6 +17,4 @@ jobs:
     # Get flutter packages
     - run: flutter pub get
       working-directory: Mads_Creator/
-    # Build :D 
-    - run: flutter build apk
-      working-directory: Mads_Creator/
+      #TODO make it debug the code
