@@ -1,10 +1,12 @@
-import 'package:Mads_Creator/pages/loggedin/dashboard/home.dart';
-import 'package:Mads_Creator/pages/loggedin/dashboard/settings.dart';
-import 'package:Mads_Creator/pages/public/login.dart';
-import 'package:Mads_Creator/pages/public/routed/signup.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/firebase.dart';
+
+
+import 'pages/loggedin/dashboard/home.dart';
+import 'pages/loggedin/dashboard/settings.dart';
+import 'pages/public/login.dart';
+import 'pages/public/routed/signup.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
