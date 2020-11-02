@@ -1,9 +1,14 @@
 import 'package:Mads_Creator/pages/loggedin/dashboard/home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase/firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-User currentUser;
+var currentUser;
+final databaseReference = FirebaseFirestore.instance;
+CollectionReference finalCollectionRefrence =
+    databaseReference.collection('Users');
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -16,7 +21,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("v.0.08"),),
+      appBar: AppBar(
+        title: Text("v.0.09"),
+      ),
       body: Container(
         child: Center(
           child: LoginContent(
@@ -122,6 +129,10 @@ class _LoginContentState extends State<LoginContent> {
                           email: _controllerOne.text,
                           password: _controllerTwo.text))
                   .user;
+
+              Future<DocumentReference> userDocument =
+                  (await finalCollectionRefrence.add({'role': "admin"}))
+                      as Future<DocumentReference>;
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => DashboardHomepage()));
               setState(() {
